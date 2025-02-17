@@ -9,9 +9,8 @@ import { Input } from "@/components/ui/input";
 function NavSearch() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  const [search, setSearch] = useState(
-    searchParams.get("search")?.toString() || ""
-  );
+  const searchValue = searchParams.get("search") || "";
+  const [search, setSearch] = useState(searchValue);
 
   const handleSearch = useDebouncedCallback((value: string) => {
     const params = new URLSearchParams(searchParams);
@@ -25,15 +24,13 @@ function NavSearch() {
   }, 300);
 
   useEffect(() => {
-    if (!searchParams.get("search")) {
-      setSearch("");
-    }
-  }, [searchParams.get("search")]);
+    setSearch(searchValue);
+  }, [searchValue]); // Perbaiki dependency array
 
   return (
     <Input
       type="search"
-      placeholder="search you product..."
+      placeholder="Search your product..."
       className="max-w-xs dark:bg-muted"
       onChange={(e) => {
         setSearch(e.target.value);
