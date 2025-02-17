@@ -14,7 +14,7 @@ interface searchParamsProps {
 }
 
 async function ProductsContainer({ layout, search }: searchParamsProps) {
-  const products = await fetchAllProducts();
+  const products = await fetchAllProducts({ search });
   const totalProduct = products.length;
   const searchTerm = search ? `&search=${search}` : "";
 
