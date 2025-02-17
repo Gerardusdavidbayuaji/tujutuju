@@ -5,9 +5,7 @@ interface headingProps {
   className?: string;
 }
 
-const heanding = "No items found.";
-
-function EmptyList({ heading, className }: headingProps) {
+function EmptyList({ heading = "No items found.", className }: headingProps) {
   return <h2 className={cn("text-xl", className)}>{heading}</h2>;
 }
 
