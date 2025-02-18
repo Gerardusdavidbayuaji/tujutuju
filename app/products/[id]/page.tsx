@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formats/format-currency";
 import { fetchSingleProduct } from "@/utils/actions/products";
@@ -8,13 +9,11 @@ import BreadCrumbs from "@/components/single-product/BreadCrumbs";
 import AddToCart from "@/components/single-product/AddToCart";
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 async function SingleProductPage({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params;
   const product = await fetchSingleProduct(id);
 
   if (!product) {
