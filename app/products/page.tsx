@@ -6,12 +6,13 @@ interface searchParams {
 }
 
 interface searchParamsProps {
-  searchParams: searchParams;
+  searchParams: Promise<searchParams>;
 }
 
-function ProductsPage({ searchParams }: searchParamsProps) {
-  const layout = searchParams.layout || "grid";
-  const search = searchParams.search || "";
+async function ProductsPage({ searchParams }: searchParamsProps) {
+  const resolvedParams = await searchParams;
+  const layout = resolvedParams.layout || "grid";
+  const search = resolvedParams.search || "";
 
   return (
     <>
