@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formats/format-currency";
 import { fetchSingleProduct } from "@/utils/actions/products";
