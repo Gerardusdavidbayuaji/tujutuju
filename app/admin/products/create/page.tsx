@@ -1,4 +1,4 @@
-import { createProductAction } from "@/utils/actions/formProduct";
+import { createProductAction } from "@/utils/actions/actions";
 import { faker } from "@faker-js/faker";
 
 import FormContainer from "@/components/form/FormContainer";

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formats/format-currency";
-import { fetchSingleProduct } from "@/utils/actions/products";
+import { fetchSingleProduct } from "@/utils/actions/actions";
 
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
 import ProductRating from "@/components/single-product/ProductRating";
