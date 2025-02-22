@@ -15,7 +15,11 @@ import {
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
 
-function LinksDropdown() {
+import { auth } from "@clerk/nextjs/server";
+
+async function LinksDropdown() {
+  const { userId } = await auth();
+  const isAdmin = userId === process.env.ADMIN_USER_ID;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,6 +44,7 @@ function LinksDropdown() {
         </SignedOut>
         <SignedIn>
           {navigations.map((navigation) => {
+            if (navigation.label === "dashboard" && !isAdmin) return null;
             return (
               <DropdownMenuItem key={navigation.href}>
                 <Link href={navigation.href} className="capitalize w-full">
