@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { fetchAllProducts } from "@/utils/actions/products";
+import { fetchAllProducts } from "@/utils/actions/actions";
 
 import { LuLayoutGrid, LuList } from "react-icons/lu";
 import { Separator } from "@/components/ui/separator";
