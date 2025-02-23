@@ -1,17 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { HeartIcon } from "lucide-react";
+import { auth } from "@clerk/nextjs/server";
+import { CardSignInButton } from "../form/Buttons";
+import { fetchFavoriteId } from "@/utils/actions/actions";
+import FavoriteToggleForm from "./FavoriteToggleForm";
 
-// interface favoriteProps {
-//   productId: string;
-// }
+async function FavoriteToggleButton({ productId }: { productId: string }) {
+  const { userId } = await auth();
+  if (!userId) return <CardSignInButton />;
+  const favoriteId = await fetchFavoriteId({ productId });
 
-// function FavoriteToggleButton({ productId }: favoriteProps) {
-function FavoriteToggleButton() {
-  return (
-    <Button size="icon" variant="outline" className="p-2 cursor-pointer">
-      <HeartIcon />
-    </Button>
-  );
+  return <FavoriteToggleForm favoriteId={favoriteId} productId={productId} />;
 }
-
 export default FavoriteToggleButton;

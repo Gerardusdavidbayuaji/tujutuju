@@ -44,8 +44,7 @@ function ProductsList({ products }: productsGridProps) {
               </Card>
             </Link>
             <div className="absolute bottom-8 right-8 z-5">
-              {/* <FavoriteToggleButton productId={productId} /> */}
-              <FavoriteToggleButton />
+              <FavoriteToggleButton productId={productId} />
             </div>
           </article>
         );

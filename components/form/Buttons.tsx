@@ -11,6 +11,7 @@ import { FiEdit } from "react-icons/fi";
 import { TbReload } from "react-icons/tb";
 
 type btnSize = "default" | "lg" | "sm";
+type actionType = "edit" | "delete";
 
 type SubmitButtonProps = {
   className?: string;
@@ -44,8 +45,6 @@ export default function SubmitButton({
   );
 }
 
-type actionType = "edit" | "delete";
-
 export const IconButton = ({ actionType }: { actionType: actionType }) => {
   const { pending } = useFormStatus();
 
@@ -69,6 +68,42 @@ export const IconButton = ({ actionType }: { actionType: actionType }) => {
       className="p-2 cursor-pointer"
     >
       {pending ? <TbReload className=" animate-spin" /> : renderIcon()}
+    </Button>
+  );
+};
+
+export const CardSignInButton = () => {
+  return (
+    <SignInButton mode="modal">
+      <Button
+        type="button"
+        size="icon"
+        variant="outline"
+        className="p-2 cursor-pointer"
+        asChild
+      >
+        <FaRegHeart />
+      </Button>
+    </SignInButton>
+  );
+};
+
+export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
+  const { pending } = useFormStatus();
+  return (
+    <Button
+      type="submit"
+      size="icon"
+      variant="outline"
+      className=" p-2 cursor-pointer"
+    >
+      {pending ? (
+        <TbReload className=" animate-spin" />
+      ) : isFavorite ? (
+        <FaHeart />
+      ) : (
+        <FaRegHeart />
+      )}
     </Button>
   );
 };
