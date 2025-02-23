@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import db from "@/utils/config/db";
 
 import {
@@ -29,12 +29,10 @@ export const getAdminUser = async () => {
   return user;
 };
 
-export const renderError = async (
-  error: unknown
-): Promise<{ message: string }> => {
-  console.log(error);
+const renderError = (error: unknown): { message: string } => {
+  // console.log(error);
   return {
-    message: error instanceof Error ? error.message : "An error occurred",
+    message: error instanceof Error ? error.message : "an error occurred",
   };
 };
 
@@ -197,4 +195,62 @@ export const updateProductImageAction = async (
   } catch (error) {
     return renderError(error);
   }
+};
+
+export const fetchFavoriteId = async ({ productId }: { productId: string }) => {
+  const user = await getAuthUser();
+  const favorite = await db.favorite.findFirst({
+    where: {
+      productId,
+      clerkId: user.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return favorite?.id || null;
+};
+
+export const toggleFavoriteAction = async (prevState: {
+  productId: string;
+  favoriteId: string | null;
+  pathname: string;
+}) => {
+  const user = await getAuthUser();
+  const { productId, favoriteId, pathname } = prevState;
+  try {
+    if (favoriteId) {
+      await db.favorite.delete({
+        where: {
+          id: favoriteId,
+        },
+      });
+    } else {
+      await db.favorite.create({
+        data: {
+          clerkId: user.id,
+          product: {
+            connect: { id: productId },
+          },
+        },
+      });
+    }
+    revalidatePath(pathname);
+    return { message: favoriteId ? "Removed from Faves" : "Added to Faves" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+export const fetchUserFavorites = async () => {
+  const user = await getAuthUser();
+  const favorites = await db.favorite.findMany({
+    where: {
+      clerkId: user.id,
+    },
+    include: {
+      product: true,
+    },
+  });
+  return favorites;
 };
