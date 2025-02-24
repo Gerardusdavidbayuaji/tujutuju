@@ -1,12 +1,19 @@
 import Image from "next/image";
+import { auth } from "@clerk/nextjs/server";
+
+import {
+  fetchSingleProduct,
+  findExistingReview,
+} from "@/utils/actions/actions";
 import { formatCurrency } from "@/utils/formats/format-currency";
-import { fetchSingleProduct } from "@/utils/actions/actions";
 
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
 import ProductRating from "@/components/single-product/ProductRating";
 import BreadCrumbs from "@/components/single-product/BreadCrumbs";
 import ShareButton from "@/components/single-product/ShareButton";
+import ProductReviews from "@/components/review/ProductReviews";
 import AddToCart from "@/components/single-product/AddToCart";
+import SubmitReview from "@/components/review/SubmitReview";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -14,7 +21,10 @@ interface PageProps {
 
 async function SingleProductPage({ params }: PageProps) {
   const { id } = await params;
+  const { userId } = await auth();
   const product = await fetchSingleProduct(id);
+  const reviewDoesNotExist =
+    userId && !(await findExistingReview(userId, product.id));
 
   if (!product) {
     return <p>Product not found</p>;
@@ -43,8 +53,7 @@ async function SingleProductPage({ params }: PageProps) {
             <FavoriteToggleButton productId={(await params).id} />
             <ShareButton name={product.id} productId={(await params).id} />
           </div>
-          {/* <ProductRating productId={params.id} /> */}
-          <ProductRating />
+          <ProductRating productId={(await params).id} />
           <h4 className="text-xl mt-2">{company}</h4>
           <p className="mt-3 text-md bg-muted inline-block p-2 rounded-md">
             {dollarsAmount}
@@ -54,6 +63,8 @@ async function SingleProductPage({ params }: PageProps) {
           <AddToCart />
         </div>
       </div>
+      <ProductReviews productId={(await params).id} />
+      {reviewDoesNotExist && <SubmitReview productId={(await params).id} />}
     </section>
   );
 }
