@@ -5,6 +5,7 @@ import { fetchSingleProduct } from "@/utils/actions/actions";
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
 import ProductRating from "@/components/single-product/ProductRating";
 import BreadCrumbs from "@/components/single-product/BreadCrumbs";
+import ShareButton from "@/components/single-product/ShareButton";
 import AddToCart from "@/components/single-product/AddToCart";
 
 interface PageProps {
@@ -24,8 +25,7 @@ async function SingleProductPage({ params }: PageProps) {
 
   return (
     <section>
-      {/* <BreadCrumbs name={product.name} /> */}
-      <BreadCrumbs />
+      <BreadCrumbs name={product.name} />
       <div className="mt-6 grid gap-y-8 lg:grid-cols-2 lg:gap-x-16">
         <div className="relative h-full">
           <Image
@@ -40,8 +40,8 @@ async function SingleProductPage({ params }: PageProps) {
         <div>
           <div className="flex gap-x-8 items-center">
             <h1 className="capitalize text-3xl font-bold">{name}</h1>
-            {/* <FavoriteToggleButton productId={params.id} /> */}
-            <FavoriteToggleButton />
+            <FavoriteToggleButton productId={(await params).id} />
+            <ShareButton name={product.id} productId={(await params).id} />
           </div>
           {/* <ProductRating productId={params.id} /> */}
           <ProductRating />

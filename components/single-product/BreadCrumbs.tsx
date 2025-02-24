@@ -1,14 +1,17 @@
 import {
-  Breadcrumb,
+  BreadcrumbSeparator,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
+  Breadcrumb,
 } from "@/components/ui/breadcrumb";
 
-// function BreadCrumbs({ name }: { name: string }) {
-function BreadCrumbs() {
+interface BreadcrumbProps {
+  name: string;
+}
+
+function BreadCrumbs({ name }: BreadcrumbProps) {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -27,7 +30,7 @@ function BreadCrumbs() {
 
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage className="capitalize text-lg">name</BreadcrumbPage>
+          <BreadcrumbPage className="capitalize text-lg">{name}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
