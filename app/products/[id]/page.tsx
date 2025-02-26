@@ -59,8 +59,7 @@ async function SingleProductPage({ params }: PageProps) {
             {dollarsAmount}
           </p>
           <p className="mt-6 leading-8 text-muted-foreground">{description}</p>
-          {/* <AddToCart productId={params.id} /> */}
-          <AddToCart />
+          <AddToCart productId={(await params).id} />
         </div>
       </div>
       <ProductReviews productId={(await params).id} />
