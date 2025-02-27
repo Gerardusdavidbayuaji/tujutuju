@@ -19,12 +19,19 @@ export default function CheckoutPage() {
   const cartId = searchParams.get("cartId");
 
   const fetchClientSecret = useCallback(async () => {
-    const response = await axios.post("/api/payment", {
-      orderId: orderId,
-      cartId: cartId,
-    });
-    return response.data.clientSecret;
-  }, []);
+    if (!orderId || !cartId) {
+      console.error("Missing orderId or cartId");
+      return null;
+    }
+
+    try {
+      const response = await axios.post("/api/payment", { orderId, cartId });
+      return response.data.clientSecret;
+    } catch (error) {
+      console.error("Error fetching client secret:", error);
+      return null;
+    }
+  }, [orderId, cartId]);
 
   const options = { fetchClientSecret };
 

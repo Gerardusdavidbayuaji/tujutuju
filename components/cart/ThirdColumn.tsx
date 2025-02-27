@@ -9,8 +9,6 @@ import {
   updateCartItemAction,
 } from "@/utils/actions/actions";
 import { useToast } from "@/hooks/use-toast";
-import { TbReload } from "react-icons/tb";
-import { Button } from "../ui/button";
 
 function ThirdColumn({ quantity, id }: { quantity: number; id: string }) {
   const [amount, setAmount] = useState(quantity);
@@ -20,12 +18,27 @@ function ThirdColumn({ quantity, id }: { quantity: number; id: string }) {
   const handleAmountChange = async (value: number) => {
     setIsLoading(true);
     toast({ description: "Calculating..." });
-    const result = await updateCartItemAction({
-      amount: value,
-      cartItemId: id,
-    });
-    setAmount(value);
-    toast({ description: result.message });
+
+    try {
+      const result = await updateCartItemAction({
+        amount: value,
+        cartItemId: id,
+      });
+
+      if (!result || !result.message) {
+        throw new Error("Invalid response from server");
+      }
+
+      setAmount(value);
+      toast({ description: result.message });
+    } catch (error) {
+      console.error("Error updating cart item:", error);
+      toast({
+        description: "Failed to update cart item",
+        variant: "destructive",
+      });
+    }
+
     setIsLoading(false);
   };
 
@@ -44,4 +57,5 @@ function ThirdColumn({ quantity, id }: { quantity: number; id: string }) {
     </div>
   );
 }
+
 export default ThirdColumn;

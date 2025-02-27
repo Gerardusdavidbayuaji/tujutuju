@@ -21,6 +21,12 @@ function FormContainer({ action, children }: FormContainerProps) {
   const { toast } = useToast();
 
   useEffect(() => {
+    if (state?.message) {
+      toast({ description: state.message });
+    }
+  }, [state, toast]);
+
+  useEffect(() => {
     if (state.message) {
       toast({ description: state.message });
     }
