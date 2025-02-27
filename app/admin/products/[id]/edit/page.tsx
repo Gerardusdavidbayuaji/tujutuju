@@ -12,8 +12,12 @@ import PriceInput from "@/components/form/PriceInput";
 import SubmitButton from "@/components/form/Buttons";
 import FormInput from "@/components/form/FormInput";
 
-async function EditProductPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+async function EditProductPage({ params }: PageProps) {
+  const { id } = await params;
   const product = await fetchAdminProductDetails(id);
 
   return (
