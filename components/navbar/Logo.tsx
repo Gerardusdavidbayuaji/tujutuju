@@ -1,13 +1,13 @@
 import Link from "next/link";
 
-import { SiSinglestore } from "react-icons/si";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import { IoFootball } from "react-icons/io5";
 
 function Logo() {
   return (
     <Button size="icon" asChild>
       <Link href="/">
-        <SiSinglestore className="w-6 h-6" />
+        <IoFootball className="w-8 h-8" />
       </Link>
     </Button>
   );

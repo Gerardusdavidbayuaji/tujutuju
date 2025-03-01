@@ -25,7 +25,7 @@ function NavSearch() {
 
   useEffect(() => {
     setSearch(searchValue);
-  }, [searchValue]); // Perbaiki dependency array
+  }, [searchValue]);
 
   return (
     <Input

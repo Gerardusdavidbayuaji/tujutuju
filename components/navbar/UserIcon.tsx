@@ -1,6 +1,7 @@
+import Image from "next/image";
+
 import { currentUser } from "@clerk/nextjs/server";
 import { LuUser } from "react-icons/lu";
-import Image from "next/image";
 
 async function UserIcon() {
   const user = await currentUser();
