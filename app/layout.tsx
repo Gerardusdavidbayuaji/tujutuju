@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 
-import Container from "@/components/global/Container";
-import Navbar from "@/components/navbar/Navbar";
 import Providers from "@/services/providers/providers";
 import { ClerkProvider } from "@clerk/nextjs";
+
+import Container from "@/components/global/Container";
+import Navbar from "@/components/navbar/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
