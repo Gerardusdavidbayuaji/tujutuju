@@ -1,7 +1,10 @@
-export const formatCurrency = (amount: number | null) => {
-  const value = amount || 0;
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(value);
+export const formatCurrency = (amount: any | null) => {
+  if (amount !== null && amount !== 0) {
+    const numberCurrency = parseInt(amount, 10);
+    const doubleCurrency = numberCurrency * 10;
+
+    return `Rp. ${doubleCurrency.toLocaleString("id-ID")}.000`;
+  } else {
+    return null;
+  }
 };
