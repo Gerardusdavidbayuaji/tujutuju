@@ -11,7 +11,6 @@ type NavigationHandler = {
 
 export const navigations: NavigationHandler[] = [
   { href: "/", label: "home" },
-  { href: "/about", label: "about" },
   { href: "/products", label: "products" },
   { href: "/favorites", label: "favorites" },
   { href: "/reviews", label: "reviews" },
