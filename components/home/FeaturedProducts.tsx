@@ -6,7 +6,7 @@ import EmptyList from "../global/EmptyList";
 
 async function FeaturedProducts() {
   const products = await fetchFeaturedProducts();
-  if (products.length === 0) return <EmptyList />;
+  if (products.length === 0) return null;
 
   return (
     <section className="pt-24">
