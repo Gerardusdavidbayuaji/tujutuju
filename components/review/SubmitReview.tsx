@@ -47,7 +47,7 @@ function SubmitReview({ productId }: SubmitReviewProps) {
             <TextAreaInput
               name="comment"
               labelText="feedback"
-              defaultValue="Outstanding product!!!"
+              defaultValue="Wow, outstanding product!"
             />
             <SubmitButton className="mt-4" />
           </FormContainer>

@@ -280,7 +280,7 @@ export const createReviewAction = async (
   }
 };
 
-export const fetchProductReviews = async (productId: string) => {
+export const getProductReviews = async (productId: string) => {
   const reviews = await db.review.findMany({
     where: {
       productId,

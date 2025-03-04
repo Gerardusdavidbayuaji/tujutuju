@@ -1,4 +1,4 @@
-import { fetchProductReviews } from "@/utils/actions/actions";
+import { getProductReviews } from "@/utils/actions/actions";
 
 import SectionTitle from "@/components/global/SectionTitle";
 import ReviewCard from "./ReviewCard";
@@ -8,7 +8,7 @@ interface ProductReviewsProps {
 }
 
 async function ProductReviews({ productId }: ProductReviewsProps) {
-  const reviews = await fetchProductReviews(productId);
+  const reviews = await getProductReviews(productId);
 
   return (
     <div className="mt-16">
