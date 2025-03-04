@@ -1,10 +1,18 @@
-import { Card, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Cart } from "@prisma/client";
+
 import { formatCurrency } from "@/utils/formats/format-currency";
 import { createOrderAction } from "@/utils/actions/actions";
-import FormContainer from "../form/FormContainer";
-import SubmitButton from "../form/Buttons";
-import { Cart } from "@prisma/client";
+
+import FormContainer from "@/components/form/FormContainer";
+import { Card, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import SubmitButton from "@/components/form/Buttons";
+
+interface CartTotalRowProps {
+  label: string;
+  amount: number;
+  lastRow?: boolean;
+}
 
 function CartTotals({ cart }: { cart: Cart }) {
   const { cartTotal, shipping, tax, orderTotal } = cart;
@@ -25,15 +33,7 @@ function CartTotals({ cart }: { cart: Cart }) {
   );
 }
 
-function CartTotalRow({
-  label,
-  amount,
-  lastRow,
-}: {
-  label: string;
-  amount: number;
-  lastRow?: boolean;
-}) {
+function CartTotalRow({ label, amount, lastRow }: CartTotalRowProps) {
   return (
     <>
       <p className="flex justify-between text-sm">

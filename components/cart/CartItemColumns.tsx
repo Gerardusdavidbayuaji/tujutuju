@@ -1,14 +1,20 @@
-import { formatCurrency } from "@/utils/formats/format-currency";
 import Image from "next/image";
 import Link from "next/link";
 
-export const FirstColumn = ({
-  name,
-  image,
-}: {
-  image: string;
+import { formatCurrency } from "@/utils/formats/format-currency";
+
+interface FirstColumnProps {
   name: string;
-}) => {
+  image: string;
+}
+
+interface SecondColumnProps {
+  name: string;
+  company: string;
+  productId: string;
+}
+
+export const FirstColumn = ({ name, image }: FirstColumnProps) => {
   return (
     <div className="relative h-24 w-24 sm:h-32 sm:w-32">
       <Image
@@ -22,15 +28,12 @@ export const FirstColumn = ({
     </div>
   );
 };
+
 export const SecondColumn = ({
   name,
   company,
   productId,
-}: {
-  name: string;
-  company: string;
-  productId: string;
-}) => {
+}: SecondColumnProps) => {
   return (
     <div className=" sm:w-48">
       <Link href={`/products/${productId}`}>
