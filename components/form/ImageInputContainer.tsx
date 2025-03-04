@@ -5,9 +5,9 @@ import Image from "next/image";
 
 import { type actionFunction } from "@/utils/types/types";
 
+import { Button } from "@/components/ui/button";
 import FormContainer from "./FormContainer";
 import ImageInput from "./ImageInput";
-import { Button } from "../ui/button";
 import SubmitButton from "./Buttons";
 
 interface ImageInputContainerProps {
