@@ -7,16 +7,18 @@ import { Product } from "@prisma/client";
 import FavoriteToggleButton from "./FavoriteToggleButton";
 import { Card, CardContent } from "@/components/ui/card";
 
-type productsGridProps = {
+interface productsGridProps {
   products: Product[];
-};
+}
+
 function ProductsList({ products }: productsGridProps) {
   return (
     <div className="mt-12 grid gap-y-8">
       {products.map((product) => {
         const { name, price, image, company } = product;
-        const dollarsAmount = formatCurrency(price);
+        const rupiahAmount = formatCurrency(price);
         const productId = product.id;
+
         return (
           <article key={productId} className="group relative">
             <Link href={`/products/${productId}`}>
@@ -38,7 +40,7 @@ function ProductsList({ products }: productsGridProps) {
                     <h4 className="text-muted-foreground">{company}</h4>
                   </div>
                   <p className="text-muted-foreground text-lg md:ml-auto">
-                    {dollarsAmount}
+                    {rupiahAmount}
                   </p>
                 </CardContent>
               </Card>
