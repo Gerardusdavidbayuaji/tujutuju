@@ -1,16 +1,19 @@
 "use client";
-import { useState } from "react";
-import SelectProductAmount from "./SelectProductAmount";
-import { Mode } from "./SelectProductAmount";
-import FormContainer from "../form/FormContainer";
-import SubmitButton from "../form/Buttons";
-import { addToCartAction } from "@/utils/actions/actions";
 import { useAuth } from "@clerk/nextjs";
-import { ProductSignInButton } from "../form/Buttons";
+import { useState } from "react";
+
+import { addToCartAction } from "@/utils/actions/actions";
+
+import { ProductSignInButton } from "@/components/form/Buttons";
+import FormContainer from "@/components/form/FormContainer";
+import SelectProductAmount from "./SelectProductAmount";
+import SubmitButton from "@/components/form/Buttons";
+import { Mode } from "./SelectProductAmount";
 
 function AddToCart({ productId }: { productId: string }) {
   const [amount, setAmount] = useState(1);
   const { userId } = useAuth();
+
   return (
     <div className="mt-4">
       <SelectProductAmount

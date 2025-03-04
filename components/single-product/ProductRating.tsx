@@ -1,4 +1,4 @@
-import { fetchProductRating } from "@/utils/actions/actions";
+import { getProductRating } from "@/utils/actions/actions";
 import { FaStar } from "react-icons/fa";
 
 interface ProductRatingProps {
@@ -6,7 +6,7 @@ interface ProductRatingProps {
 }
 
 async function ProductRating({ productId }: ProductRatingProps) {
-  const { rating, count } = await fetchProductRating(productId);
+  const { rating, count } = await getProductRating(productId);
 
   const className = `flex gap-1 items-center text-md mt-1 mb-4`;
   const countValue = `(${count}) reviews`;

@@ -1,9 +1,9 @@
 import {
-  Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectItem,
+  Select,
 } from "@/components/ui/select";
 
 export enum Mode {
@@ -11,18 +11,18 @@ export enum Mode {
   CartItem = "cartItem",
 }
 
-type SelectProductAmountProps = {
+interface SelectProductAmountProps {
   mode: Mode.SingleProduct;
   amount: number;
   setAmount: (value: number) => void;
-};
+}
 
-type SelectCartItemAmountProps = {
+interface SelectCartItemAmountProps {
   mode: Mode.CartItem;
   amount: number;
   setAmount: (value: number) => Promise<void>;
   isLoading: boolean;
-};
+}
 
 function SelectProductAmount(
   props: SelectProductAmountProps | SelectCartItemAmountProps

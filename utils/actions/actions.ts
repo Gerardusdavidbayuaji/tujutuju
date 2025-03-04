@@ -341,7 +341,7 @@ export const findExistingReview = async (userId: string, productId: string) => {
   });
 };
 
-export const fetchProductRating = async (productId: string) => {
+export const getProductRating = async (productId: string) => {
   const result = await db.review.groupBy({
     by: ["productId"],
     _avg: {
