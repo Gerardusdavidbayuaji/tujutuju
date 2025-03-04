@@ -1,15 +1,14 @@
 "use client";
 
-import * as React from "react";
-import { MoonIcon, SunMoonIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
+import { MoonIcon, SunMoonIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenu,
 } from "@/components/ui/dropdown-menu";
 
 function DarkMode() {

@@ -10,7 +10,7 @@ function SignOutLink() {
 
   const handleLogout = () => {
     toast({
-      description: "Logging out...",
+      description: "Logged out successfully",
     });
   };
 

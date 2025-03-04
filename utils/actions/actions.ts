@@ -361,7 +361,7 @@ export const fetchProductRating = async (productId: string) => {
   };
 };
 
-export const fetchCartItems = async () => {
+export const getCartItems = async () => {
   const { userId } = await auth();
 
   const cart = await db.cart.findFirst({
@@ -372,6 +372,7 @@ export const fetchCartItems = async () => {
       numItemsInCart: true,
     },
   });
+
   return cart?.numItemsInCart || 0;
 };
 

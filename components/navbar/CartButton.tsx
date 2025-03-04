@@ -1,10 +1,13 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
+
+import { getCartItems } from "@/utils/actions/actions";
+
+import { Button } from "@/components/ui/button";
 import { LuShoppingCart } from "react-icons/lu";
-import { fetchCartItems } from "@/utils/actions/actions";
 
 async function CartButton() {
-  const numItemsInCart = await fetchCartItems();
+  const numItemsInCart = await getCartItems();
+
   return (
     <Button
       variant="outline"

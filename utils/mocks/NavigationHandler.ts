@@ -3,11 +3,11 @@ import hero2 from "@/public/images/hero2.jpg";
 import hero3 from "@/public/images/hero3.png";
 import hero4 from "@/public/images/hero4.jpg";
 
-type NavigationHandler = {
+interface NavigationHandler {
   id?: string;
   href: string;
   label: string;
-};
+}
 
 export const navigations: NavigationHandler[] = [
   { href: "/", label: "home" },

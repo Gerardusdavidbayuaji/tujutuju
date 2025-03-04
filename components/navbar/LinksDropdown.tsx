@@ -1,12 +1,14 @@
 import Link from "next/link";
 
 import { SignInButton, SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+
 import { navigations } from "@/utils/mocks/NavigationHandler";
 
+import SignOutLink from "@/components/navbar/SignOutLink";
+import UserIcon from "@/components/navbar/UserIcon";
+import { Button } from "@/components/ui/button";
 import { LuAlignLeft } from "react-icons/lu";
-import SignOutLink from "./SignOutLink";
-import { Button } from "../ui/button";
-import UserIcon from "./UserIcon";
 import {
   DropdownMenuSeparator,
   DropdownMenuContent,
@@ -15,11 +17,10 @@ import {
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
 
-import { auth } from "@clerk/nextjs/server";
-
 async function LinksDropdown() {
   const { userId } = await auth();
   const isAdmin = userId === process.env.ADMIN_USER_ID;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
