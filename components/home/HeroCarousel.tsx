@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { heroCarousel } from "@/utils/mocks/NavigationHandler";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -7,7 +9,6 @@ import {
   CarouselNext,
   Carousel,
 } from "@/components/ui/carousel";
-import Image from "next/image";
 
 function HeroCarousel() {
   return (

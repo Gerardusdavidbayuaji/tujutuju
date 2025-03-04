@@ -1,7 +1,7 @@
 import { fetchFeaturedProducts } from "@/utils/actions/actions";
 
-import ProductsGrid from "../products/ProductsGrid";
-import SectionTitle from "../global/SectionTitle";
+import ProductsGrid from "@/components/products/ProductsGrid";
+import SectionTitle from "@/components/global/SectionTitle";
 
 async function FeaturedProducts() {
   const products = await fetchFeaturedProducts();
@@ -9,7 +9,7 @@ async function FeaturedProducts() {
 
   return (
     <section className="pt-24">
-      <SectionTitle text="featured products" />
+      <SectionTitle text="Featured Products" />
       <ProductsGrid products={products} />
     </section>
   );
