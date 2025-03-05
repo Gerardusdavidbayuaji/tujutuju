@@ -1,6 +1,8 @@
+import { type NextRequest } from "next/server";
+
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-import { type NextRequest } from "next/server";
+
 import db from "@/utils/config/db";
 
 export const POST = async (req: NextRequest) => {
@@ -41,7 +43,7 @@ export const POST = async (req: NextRequest) => {
           name: cartItem.product.name,
           images: [cartItem.product.image],
         },
-        unit_amount: cartItem.product.price * 100, // price in cents
+        unit_amount: cartItem.product.price * 100,
       },
     };
   });
