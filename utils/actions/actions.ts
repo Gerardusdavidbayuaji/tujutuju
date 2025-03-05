@@ -4,8 +4,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { auth, currentUser } from "@clerk/nextjs/server";
-import db from "@/utils/config/db";
 import { Cart } from "@prisma/client";
+
+import { uploadImage, deleteImage } from "@/utils/config/supabase";
+import db from "@/utils/config/db";
 
 import {
   validateWithZodSchema,
@@ -13,7 +15,6 @@ import {
   imageSchema,
   reviewSchema,
 } from "../types/schemas";
-import { uploadImage, deleteImage } from "../config/supabase";
 
 export const getAuthUser = async () => {
   const user = await currentUser();
@@ -32,13 +33,12 @@ export const getAdminUser = async () => {
 };
 
 const renderError = (error: unknown): { message: string } => {
-  // console.log(error);
   return {
     message: error instanceof Error ? error.message : "an error occurred",
   };
 };
 
-export const fetchAdminProducts = async () => {
+export const getAdminProducts = async () => {
   await getAdminUser();
 
   const products = await db.product.findMany({
@@ -134,13 +134,15 @@ export const deleteProductAction = async (prevState: { productId: string }) => {
   }
 };
 
-export const fetchAdminProductDetails = async (productId: string) => {
+export const getAdminProductDetails = async (productId: string) => {
   await getAdminUser();
+
   const product = await db.product.findUnique({
     where: {
       id: productId,
     },
   });
+
   if (!product) redirect("/admin/products");
   return product;
 };
@@ -244,7 +246,7 @@ export const toggleFavoriteAction = async (prevState: {
   }
 };
 
-export const fetchUserFavorites = async () => {
+export const getUserFavorites = async () => {
   const user = await getAuthUser();
   const favorites = await db.favorite.findMany({
     where: {
@@ -292,7 +294,7 @@ export const getProductReviews = async (productId: string) => {
   return reviews;
 };
 
-export const fetchProductReviewsByUser = async () => {
+export const getProductReviewsByUser = async () => {
   const user = await getAuthUser();
   const reviews = await db.review.findMany({
     where: {
@@ -398,7 +400,7 @@ const includeProductClause = {
   },
 };
 
-export const fetchOrCreateCart = async ({
+export const getOrCreateCart = async ({
   userId,
   errorOnFailure = false,
 }: {
@@ -466,7 +468,7 @@ export const updateCart = async (cart: Cart) => {
       cartId: cart.id,
     },
     include: {
-      product: true, // Include the related product
+      product: true,
     },
     orderBy: {
       createdAt: "asc",
@@ -506,7 +508,7 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
     const productId = formData.get("productId") as string;
     const amount = Number(formData.get("amount"));
     await fetchProduct(productId);
-    const cart = await fetchOrCreateCart({ userId: user.id });
+    const cart = await getOrCreateCart({ userId: user.id });
     await updateOrCreateCartItem({ productId, cartId: cart.id, amount });
     await updateCart(cart);
   } catch (error) {
@@ -522,7 +524,7 @@ export const removeCartItemAction = async (
   const user = await getAuthUser();
   try {
     const cartItemId = formData.get("id") as string;
-    const cart = await fetchOrCreateCart({
+    const cart = await getOrCreateCart({
       userId: user.id,
       errorOnFailure: true,
     });
@@ -551,7 +553,7 @@ export const updateCartItemAction = async ({
   const user = await getAuthUser();
 
   try {
-    const cart = await fetchOrCreateCart({
+    const cart = await getOrCreateCart({
       userId: user.id,
       errorOnFailure: true,
     });
@@ -577,7 +579,7 @@ export const createOrderAction = async (prevState: any, formData: FormData) => {
   let orderId: null | string = null;
   let cartId: null | string = null;
   try {
-    const cart = await fetchOrCreateCart({
+    const cart = await getOrCreateCart({
       userId: user.id,
       errorOnFailure: true,
     });
@@ -606,7 +608,7 @@ export const createOrderAction = async (prevState: any, formData: FormData) => {
   redirect(`/checkout?orderId=${orderId}&cartId=${cartId}`);
 };
 
-export const fetchUserOrders = async () => {
+export const getUserOrders = async () => {
   const user = await getAuthUser();
   const orders = await db.order.findMany({
     where: {
@@ -620,7 +622,7 @@ export const fetchUserOrders = async () => {
   return orders;
 };
 
-export const fetchAdminOrders = async () => {
+export const getAdminOrders = async () => {
   const user = await getAdminUser();
 
   const orders = await db.order.findMany({
