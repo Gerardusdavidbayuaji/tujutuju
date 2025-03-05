@@ -1,7 +1,7 @@
 import {
-  fetchAdminProductDetails,
-  updateProductAction,
   updateProductImageAction,
+  getAdminProductDetails,
+  updateProductAction,
 } from "@/utils/actions/actions";
 
 import ImageInputContainer from "@/components/form/ImageInputContainer";
@@ -12,13 +12,13 @@ import PriceInput from "@/components/form/PriceInput";
 import SubmitButton from "@/components/form/Buttons";
 import FormInput from "@/components/form/FormInput";
 
-interface PageProps {
+interface EditProductPageProps {
   params: Promise<{ id: string }>;
 }
 
-async function EditProductPage({ params }: PageProps) {
+async function EditProductPage({ params }: EditProductPageProps) {
   const { id } = await params;
-  const product = await fetchAdminProductDetails(id);
+  const product = await getAdminProductDetails(id);
 
   return (
     <section>

@@ -1,13 +1,9 @@
 import Link from "next/link";
 
+import { deleteProductAction, getAdminProducts } from "@/utils/actions/actions";
 import { formatCurrency } from "@/utils/formats/format-currency";
-import {
-  fetchAdminProducts,
-  deleteProductAction,
-} from "@/utils/actions/actions";
-import { IconButton } from "@/components/form/Buttons";
 import FormContainer from "@/components/form/FormContainer";
-
+import { IconButton } from "@/components/form/Buttons";
 import EmptyList from "@/components/global/EmptyList";
 
 import {
@@ -21,7 +17,7 @@ import {
 } from "@/components/ui/table";
 
 async function AdminProductsPage() {
-  const items = await fetchAdminProducts();
+  const items = await getAdminProducts();
   if (items.length === 0) return <EmptyList />;
 
   return (

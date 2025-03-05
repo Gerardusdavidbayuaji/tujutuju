@@ -8,12 +8,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { fetchAdminOrders } from "@/utils/actions/actions";
+import { getAdminOrders } from "@/utils/actions/actions";
 import { formatCurrency } from "@/utils/formats/format-currency";
 import { formatDate } from "@/utils/formats/format-date";
 
 async function SalesPage() {
-  const orders = await fetchAdminOrders();
+  const orders = await getAdminOrders();
 
   return (
     <div>
