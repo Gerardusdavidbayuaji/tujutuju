@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback } from "react";
 import { loadStripe } from "@stripe/stripe-js";

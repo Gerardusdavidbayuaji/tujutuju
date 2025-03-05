@@ -1,20 +1,20 @@
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-import SectionTitle from "@/components/global/SectionTitle";
-import { fetchUserOrders } from "@/utils/actions/actions";
 import { formatCurrency } from "@/utils/formats/format-currency";
 import { formatDate } from "@/utils/formats/format-date";
+import { getUserOrders } from "@/utils/actions/actions";
+
+import SectionTitle from "@/components/global/SectionTitle";
+import {
+  TableCaption,
+  TableHeader,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Table,
+} from "@/components/ui/table";
 
 async function OrdersPage() {
-  const orders = await fetchUserOrders();
+  const orders = await getUserOrders();
 
   return (
     <>

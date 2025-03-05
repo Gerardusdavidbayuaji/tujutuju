@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 
-import { fetchOrCreateCart, updateCart } from "@/utils/actions/actions";
+import { getOrCreateCart, updateCart } from "@/utils/actions/actions";
 
 import SectionTitle from "@/components/global/SectionTitle";
 import CartItemsList from "@/components/cart/CartItemsList";
@@ -10,12 +10,13 @@ import CartTotals from "@/components/cart/CartTotals";
 async function CartPage() {
   const { userId } = await auth();
   if (!userId) redirect("/");
-  const previousCart = await fetchOrCreateCart({ userId });
+  const previousCart = await getOrCreateCart({ userId });
   const { cartItems, currentCart } = await updateCart(previousCart);
 
   if (cartItems.length === 0) {
     return <SectionTitle text="Empty cart" />;
   }
+
   return (
     <>
       <SectionTitle text="Shopping Cart" />
@@ -30,4 +31,5 @@ async function CartPage() {
     </>
   );
 }
+
 export default CartPage;

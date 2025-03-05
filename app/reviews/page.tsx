@@ -1,14 +1,15 @@
 import {
+  getProductReviewsByUser,
   deleteReviewAction,
-  fetchProductReviewsByUser,
 } from "@/utils/actions/actions";
+
 import SectionTitle from "@/components/global/SectionTitle";
 import FormContainer from "@/components/form/FormContainer";
-import { IconButton } from "@/components/form/Buttons";
 import ReviewCard from "@/components/review/ReviewCard";
+import { IconButton } from "@/components/form/Buttons";
 
 async function ReviewsPage() {
-  const reviews = await fetchProductReviewsByUser();
+  const reviews = await getProductReviewsByUser();
   if (reviews.length === 0)
     return <SectionTitle text="you have no reviews yet" />;
 
