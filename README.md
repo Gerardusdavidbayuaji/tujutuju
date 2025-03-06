@@ -38,9 +38,11 @@ The application is accessible at:
 - **Stripe**: Payment processing for secure transactions.
 - **TypeScript**: A typed superset of JavaScript for safer and more efficient code.
 
-## ERD (Entity Relationship Diagram)
+### For admin tester:
 
-Coming soon.
+email: tujutuju@mail.com
+
+password: tujutuju12345
 
 ## Installation
 
